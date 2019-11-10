@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import './new/index.dart';
 
-void main() => runApp(MainScreen());
+void main() {
+  runApp(new MaterialApp(
+    title: "Test",
+    routes: <String, WidgetBuilder>{
+      '/': (BuildContext context) => new MainScreen(),
+      '/new': (BuildContext context) => new NewRootScreen(),
+    },
+  ));
+}
 
 class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -11,12 +20,20 @@ class MainScreen extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('ワンタップ経路表示')
+          title: Text('ワンタップ経路表示'),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.add_circle),
+              onPressed: () {
+                Navigator.pushNamed(context, '/new');
+              },
+            ),
+          ],
         ),
         body: Center(
           child: RoutePatten(),
         ),
-      )
+      ),
     );
   }
 }
@@ -62,7 +79,7 @@ class _RoutePatten extends State<RoutePatten> {
           ),
         ),
         // 経路表示ボタン
-        routeButton,
+        routeButton
       ],
     );
   }
