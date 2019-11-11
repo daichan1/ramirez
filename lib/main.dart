@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './new/index.dart';
+import './root/index.dart';
 
 void main() {
   runApp(new MaterialApp(
@@ -7,6 +8,7 @@ void main() {
     routes: <String, WidgetBuilder>{
       '/': (BuildContext context) => new MainScreen(),
       '/new': (BuildContext context) => new NewRootScreen(),
+      '/root': (BuildContext context) => new RootScreen(),
     },
   ));
 }
@@ -31,7 +33,20 @@ class MainScreen extends StatelessWidget {
           ],
         ),
         body: Center(
-          child: RoutePatten(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              RoutePatten(),
+              Container(
+                child: RaisedButton(
+                  child: Text('経路を表示する'),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/root');
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -78,19 +93,7 @@ class _RoutePatten extends State<RoutePatten> {
             }).toList(),
           ),
         ),
-        // 経路表示ボタン
-        routeButton
       ],
     );
   }
 }
-
-// 経路表示するボタンのコンポーネント
-Widget routeButton = Container(
-  child: RaisedButton(
-    child: Text('経路を表示する'),
-    onPressed: () {
-      // 経路表示画面に移動する
-    },
-  ),
-);
